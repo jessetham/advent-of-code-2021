@@ -2,11 +2,13 @@ package day4
 
 import java.io.File
 
+
 data class BingoCard(val values: List<Int>, val n: Int, val called: Set<Int> = emptySet()) {
     companion object {
+        private val regex by lazy { """\s+""".toRegex() }
+
         fun of(s: String): BingoCard {
-            val reg by lazy { """\s+""".toRegex() }
-            val nums = s.split(reg).filter(String::isNotEmpty).map(String::toInt)
+            val nums = s.split(regex).filter(String::isNotEmpty).map(String::toInt)
             val n = s.split("\n").size
             return BingoCard(nums, n)
         }

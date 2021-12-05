@@ -4,11 +4,13 @@ import java.io.File
 import kotlin.math.absoluteValue
 import kotlin.math.sign
 
+
 data class Segment(val x1: Int, val y1: Int, val x2: Int, val y2: Int) {
     companion object {
+        private val regex by lazy { """(\d+),(\d+) -> (\d+),(\d+)""".toRegex() }
+
         fun of(s: String): Segment {
-            val reg by lazy { """(\d+),(\d+) -> (\d+),(\d+)""".toRegex() }
-            val (x1, y1, x2, y2) = reg.matchEntire(s)!!.destructured
+            val (x1, y1, x2, y2) = regex.matchEntire(s)!!.destructured
             return Segment(x1.toInt(), y1.toInt(), x2.toInt(), y2.toInt())
         }
     }
